@@ -5,10 +5,10 @@ import { ContainerStyled } from 'styled';
 
 const App = function (): JSX.Element {
   return (
-      <ContainerStyled>
-        <ApplicationBar />
-        <MainPage />
-      </ContainerStyled>
+    <ContainerStyled>
+      <ApplicationBar />
+      <MainPage />
+    </ContainerStyled>
   );
 };
 

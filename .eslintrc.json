@@ -26,6 +26,7 @@
     "react/jsx-props-no-spreading": [
       "off"
     ],
+    "func-names": "off",
     "no-use-before-define": "off",
     "@typescript-eslint/no-use-before-define": [
       "error"
@@ -78,6 +79,15 @@
       2,
       {
         "SwitchCase": 1
+      }
+    ],
+    "no-restricted-imports": [
+      "error",
+      {
+        "patterns": [
+          "@mui/*/*/*",
+          "!@mui/material/test-utils/*"
+        ]
       }
     ]
   },
