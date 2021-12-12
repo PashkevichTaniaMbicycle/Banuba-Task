@@ -6,7 +6,7 @@ const ApplicationBar = function (): JSX.Element {
   return (
     <AppBar>
       <Toolbar>
-        <Typography>Banuba task app</Typography>
+        <Typography>Banuba video app</Typography>
       </Toolbar>
     </AppBar>
   );
