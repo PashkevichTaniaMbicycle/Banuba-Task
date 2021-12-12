@@ -1,67 +1,26 @@
-import {
-  ChangeEvent, memo, useState,
-} from 'react';
+import { memo } from 'react';
+
 import { useConnection } from 'common/providers/hooks/useConnection';
-import {
-  Button, Container, Grid, Paper, TextField, Typography,
-} from '@mui/material';
-import { Phone, PhoneDisabled } from '@mui/icons-material';
+import { Button } from '@mui/material';
 
-const Notification = function ({ children }:{ children: React.ReactNode }): JSX.Element {
-  const {
-    name, callUser, callAccepted, leaveCall, callEnded, setName, me,
-  } = useConnection();
-  const [idToCall, setIdToCall] = useState('');
+import { TEXT } from 'containers/main-page/utils/constants';
 
-  const onNameChange = (e: ChangeEvent<HTMLTextAreaElement>): void => {
-    setName(e.target.value);
-  };
+import { NotificationStyled } from 'containers/main-page/utils/styled';
 
-  const onIDToCallChange = (e: ChangeEvent<HTMLTextAreaElement>): void => {
-    setIdToCall(e.target.value);
-  };
+const Notification = function (): JSX.Element {
+  const { answerCall, call, callAccepted } = useConnection();
 
   return (
-    <Container>
-      <Paper elevation={10}>
-        <form noValidate autoComplete="off">
-          <Grid container>
-            <Grid item xs={12} md={6}>
-              <Typography gutterBottom variant="h6">Account Info</Typography>
-              <TextField label="Name" value={name} onChange={onNameChange} fullWidth />
-              <Typography gutterBottom variant="h6">Your ID:</Typography>
-              <TextField label="ID" value={me} disabled fullWidth />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <Typography gutterBottom variant="h6">Make a call</Typography>
-              <TextField label="ID to call" value={idToCall} onChange={onIDToCallChange} fullWidth />
-              {callAccepted && !callEnded ? (
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  startIcon={<PhoneDisabled fontSize="large" />}
-                  fullWidth
-                  onClick={leaveCall}
-                >
-                  Hang Up
-                </Button>
-              ) : (
-                <Button
-                  variant="contained"
-                  color="primary"
-                  startIcon={<Phone fontSize="large" />}
-                  fullWidth
-                  onClick={() => callUser(idToCall)}
-                >
-                  Call
-                </Button>
-              )}
-            </Grid>
-          </Grid>
-        </form>
-        {children}
-      </Paper>
-    </Container>
+    <div>
+      {call?.isReceivingCall && !callAccepted && (
+        <NotificationStyled>
+          <h2>{`${TEXT.RECEIVING} ${call.name}:`}</h2>
+          <Button variant="contained" color="primary" onClick={answerCall}>
+            {TEXT.BUTTONS.ANSWER}
+          </Button>
+        </NotificationStyled>
+      )}
+    </div>
   );
 };
 
