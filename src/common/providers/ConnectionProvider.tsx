@@ -8,7 +8,9 @@ import {
 
 import { io } from 'socket.io-client';
 import Peer from 'simple-peer';
+
 import { ContextType, ICall } from 'common/providers/Interfaces';
+
 import { toast } from 'react-toastify';
 
 const SocketContext = createContext<ContextType | undefined>(undefined);
@@ -50,10 +52,6 @@ const ContextProvider = memo(({ children }:{ children: React.ReactNode }): JSX.E
       }).catch((error) => {
         tostError(`To use this app you need to grand access to your camera and microphone ${error}`);
       });
-
-    if (socket.disconnected) {
-      tostError('Disconnected');
-    }
 
     socket.on('error', (error) => {
       tostError(`An error occurred. ${error}`);
