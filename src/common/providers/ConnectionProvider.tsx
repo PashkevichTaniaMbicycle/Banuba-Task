@@ -3,7 +3,8 @@ import {
   useState,
   useRef,
   useEffect,
-  memo, useMemo,
+  memo,
+  useMemo,
 } from 'react';
 
 import { io } from 'socket.io-client';
@@ -29,7 +30,7 @@ const ContextProvider = memo(({ children }:{ children: React.ReactNode }): JSX.E
   const userVideo = useRef<{srcObject: MediaStream }>();
   const connectionRef = useRef<Peer.Instance>();
 
-  const tostError = (message: string): void => {
+  const toastError = (message: string): void => {
     toast.error(message, {
       position: 'top-right',
       autoClose: 5000,
@@ -50,15 +51,15 @@ const ContextProvider = memo(({ children }:{ children: React.ReactNode }): JSX.E
           myVideo.current.srcObject = currentStream;
         }
       }).catch((error) => {
-        tostError(`To use this app you need to grand access to your camera and microphone ${error}`);
+        toastError(`To use this app you need to grand access to your camera and microphone ${error}`);
       });
 
     socket.on('error', (error) => {
-      tostError(`An error occurred. ${error}`);
+      toastError(`An error occurred. ${error}`);
     });
 
     socket.on('connect_failed', (error) => {
-      tostError(`Connection failed. ${error}`);
+      toastError(`Connection failed. ${error}`);
     });
 
     socket.on('me', (id) => setMe(id));
@@ -131,6 +132,7 @@ const ContextProvider = memo(({ children }:{ children: React.ReactNode }): JSX.E
       myVideo,
       userVideo,
       stream,
+      setStream,
       name,
       setName,
       callEnded,
@@ -140,7 +142,7 @@ const ContextProvider = memo(({ children }:{ children: React.ReactNode }): JSX.E
       answerCall,
     }),
     [
-      call, callAccepted, myVideo, userVideo, stream, name, callEnded, me, callUser, leaveCall, answerCall,
+      call, callAccepted, myVideo, userVideo, stream, name, callEnded, me,
     ],
   );
 
