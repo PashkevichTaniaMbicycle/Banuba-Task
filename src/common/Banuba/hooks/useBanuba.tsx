@@ -1,5 +1,5 @@
 import {
-  Webcam, Player, Effect, Dom, MediaStreamCapture,
+  Player, Effect, Dom, MediaStreamCapture,
 } from 'common/Banuba/SDK/BanubaSDK.js';
 import { useEffect, useState } from 'react';
 

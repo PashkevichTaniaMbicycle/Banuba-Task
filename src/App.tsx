@@ -2,7 +2,7 @@ import ApplicationBar from 'containers/application-bar';
 import { MainPage } from 'containers/main-page';
 
 import { ContextProvider } from 'common/providers/ConnectionProvider';
-import { BanubaProvider } from 'common/Banuba/BanubaProvider/BanubaProvider';
+import { BanubaProvider } from 'common/providers/BanubaProvider';
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';

@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 
-import { BanubaContextType } from 'common/Banuba/BanubaProvider/type';
-import { BanubaContext } from 'common/Banuba/BanubaProvider/BanubaProvider';
+import { BanubaContextType } from 'common/providers/type';
+import { BanubaContext } from 'common/providers/BanubaProvider';
 
 export const useBanubaContext = (): BanubaContextType => {
   const context = useContext(BanubaContext);

@@ -8,7 +8,7 @@ import { useConnection } from 'common/providers/hooks/useConnection';
 import { MediaStreamCapture } from 'common/Banuba/SDK/BanubaSDK';
 import Paper from '@mui/material/Paper';
 import Name from 'containers/main-page/VideoPlayer/Name';
-import { useBanubaContext } from 'common/Banuba/BanubaProvider/hook/useBanubaContext ';
+import { useBanubaContext } from 'common/providers/hooks/useBanubaContext';
 
 const MyVideo = function (): JSX.Element {
   const meVideoRef = useRef<HTMLDivElement | null>(null);
@@ -30,14 +30,12 @@ const MyVideo = function (): JSX.Element {
   // }, [player]);
 
   return (
-    <div>
-      <VideoWrapper item xs={12} md={6}>
-        <Paper>
-          <Name />
-          <div ref={meVideoRef} />
-        </Paper>
-      </VideoWrapper>
-    </div>
+    <VideoWrapper item xs={12} md={6}>
+      <Paper>
+        <Name />
+        <div ref={meVideoRef} />
+      </Paper>
+    </VideoWrapper>
     // <VideoWrapper item xs={12} md={6}>
     //
     //   <div ref={meVideoRef} />

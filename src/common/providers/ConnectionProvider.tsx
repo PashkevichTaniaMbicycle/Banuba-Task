@@ -42,6 +42,9 @@ const ContextProvider = memo(({ children }:{ children: React.ReactNode }): JSX.E
     });
   };
 
+  console.log(stream);
+  console.log(stream?.getVideoTracks()[0]);
+
   useEffect(() => {
     navigator.mediaDevices.getUserMedia({ video: true, audio: true })
       .then((currentStream) => {

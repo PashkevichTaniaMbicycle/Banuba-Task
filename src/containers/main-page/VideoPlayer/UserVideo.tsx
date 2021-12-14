@@ -10,17 +10,18 @@ const UserVideo = function (): JSX.Element {
   } = useConnection();
 
   return (
-    <div>
+    <VideoWrapper item xs={12} md={6}>
       {callAccepted && !callEnded && (
-        <VideoWrapper item xs={12} md={6}>
-          <Paper>
-            <Typography variant="h5" gutterBottom>{call?.name || 'Name'}</Typography>
-            {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
-            <VideoStyled playsInline ref={userVideo as LegacyRef<HTMLVideoElement>} autoPlay />
-          </Paper>
-        </VideoWrapper>
+        <Paper>
+          <Typography variant="h5" gutterBottom>
+            {'Peer: '}
+            { call?.name || ' Name'}
+          </Typography>
+          {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
+          <VideoStyled playsInline ref={userVideo as LegacyRef<HTMLVideoElement>} autoPlay />
+        </Paper>
       )}
-    </div>
+    </VideoWrapper>
   );
 };
 

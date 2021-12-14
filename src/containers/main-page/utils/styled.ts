@@ -20,12 +20,11 @@ export const BoxStyled = styled('div')(({ theme }) => ({
   alignItems: 'center',
 }));
 
-export const MainVideosWrapperStyled = styled('div')(({ theme }) => ({
-  height: '100%',
+export const MainVideosWrapperStyled = styled('div')({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-}));
+});
 
 export const VideosWrapper = styled(Grid)(({ theme }) => ({
   paddingBottom: theme.spacing(4),
