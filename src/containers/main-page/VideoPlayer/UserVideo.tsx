@@ -6,7 +6,10 @@ import { Typography } from '@mui/material';
 
 const UserVideo = function (): JSX.Element {
   const {
-    callAccepted, userVideo, callEnded, call,
+    callAccepted,
+    userVideo,
+    callEnded,
+    call,
   } = useConnection();
 
   return (

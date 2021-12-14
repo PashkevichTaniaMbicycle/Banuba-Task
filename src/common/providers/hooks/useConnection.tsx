@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 
 import { SocketContext } from 'common/providers/ConnectionProvider';
-import { ContextType } from 'common/providers/Interfaces';
+import { ContextType } from 'common/providers/type';
 
 export const useConnection = (): ContextType => {
   const context = useContext(SocketContext);

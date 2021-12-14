@@ -10,9 +10,10 @@ import {
 import { io } from 'socket.io-client';
 import Peer from 'simple-peer';
 
-import { ContextType, ICall } from 'common/providers/Interfaces';
+import { ICall } from 'common/providers/Interfaces';
+import { ContextType } from 'common/providers/type';
 
-import { toast } from 'react-toastify';
+import { notifyError } from 'common/notify';
 
 const SocketContext = createContext<ContextType | undefined>(undefined);
 
@@ -29,18 +30,6 @@ const ContextProvider = memo(({ children }:{ children: React.ReactNode }): JSX.E
   const userVideo = useRef<{srcObject: MediaStream }>();
   const connectionRef = useRef<Peer.Instance>();
 
-  const toastError = (message: string): void => {
-    toast.error(message, {
-      position: 'top-right',
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-  };
-
   useEffect(() => {
     navigator.mediaDevices.getUserMedia({ audio: true })
       .then((currentStream) => {
@@ -48,15 +37,15 @@ const ContextProvider = memo(({ children }:{ children: React.ReactNode }): JSX.E
           setStream(currentStream);
         }
       }).catch((error) => {
-        toastError(`To use this app you need to grand access to your camera and microphone ${error}`);
+        notifyError(`To use this app you need to grand access to your camera and microphone ${error}`);
       });
 
     socket.on('error', (error) => {
-      toastError(`An error occurred. ${error}`);
+      notifyError(`An error occurred. ${error}`);
     });
 
     socket.on('connect_failed', (error) => {
-      toastError(`Connection failed. ${error}`);
+      notifyError(`Connection failed. ${error}`);
     });
 
     socket.on('me', (id) => setMe(id));
