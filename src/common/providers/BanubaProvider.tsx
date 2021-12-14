@@ -1,5 +1,9 @@
 import {
-  createContext, memo, useEffect, useMemo, useState,
+  createContext,
+  memo,
+  useEffect,
+  useMemo,
+  useState,
 } from 'react';
 
 import { Effect, Player, Webcam } from 'common/Banuba/SDK/BanubaSDK';

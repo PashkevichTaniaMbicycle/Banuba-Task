@@ -2,10 +2,11 @@ import { memo, useEffect, useState } from 'react';
 
 import { Button } from '@mui/material';
 
+import { MediaStreamCapture } from 'common/Banuba/SDK/BanubaSDK';
+
 import { BlurUnblurVideo } from 'common/Banuba/hooks/useBanuba';
 import { useBanubaContext } from 'common/providers/hooks/useBanubaContext';
 import { useConnection } from 'common/providers/hooks/useConnection';
-import { MediaStreamCapture } from 'common/Banuba/SDK/BanubaSDK';
 
 const BlurButton = function (): JSX.Element {
   const { player, blurEffect } = useBanubaContext();
@@ -16,11 +17,9 @@ const BlurButton = function (): JSX.Element {
     BlurUnblurVideo(player, blurEffect, isBlur);
     if (player && stream) {
       const capture = new MediaStreamCapture(player);
-
-      console.log(capture);
-      console.log(capture.getVideoTrack());
-      const newStream = new MediaStream([stream.getAudioTracks()[0], capture.getVideoTrack()]);
-      console.log(newStream);
+      const audio = stream.getAudioTracks()[0];
+      const video = capture.getVideoTrack();
+      const newStream = new MediaStream([audio, video]);
       setStream(newStream);
     }
   }, [blurEffect, isBlur, player]);

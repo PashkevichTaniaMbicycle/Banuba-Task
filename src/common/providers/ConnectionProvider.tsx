@@ -26,7 +26,6 @@ const ContextProvider = memo(({ children }:{ children: React.ReactNode }): JSX.E
   const [call, setCall] = useState<ICall>();
   const [me, setMe] = useState('');
 
-  const myVideo = useRef<{srcObject: MediaStream }>();
   const userVideo = useRef<{srcObject: MediaStream }>();
   const connectionRef = useRef<Peer.Instance>();
 
@@ -42,16 +41,11 @@ const ContextProvider = memo(({ children }:{ children: React.ReactNode }): JSX.E
     });
   };
 
-  console.log(stream);
-  console.log(stream?.getVideoTracks()[0]);
-
   useEffect(() => {
-    navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+    navigator.mediaDevices.getUserMedia({ audio: true })
       .then((currentStream) => {
-        setStream(currentStream);
-
-        if (myVideo.current) {
-          myVideo.current.srcObject = currentStream;
+        if (!stream) {
+          setStream(currentStream);
         }
       }).catch((error) => {
         toastError(`To use this app you need to grand access to your camera and microphone ${error}`);
@@ -132,7 +126,6 @@ const ContextProvider = memo(({ children }:{ children: React.ReactNode }): JSX.E
     () => ({
       call,
       callAccepted,
-      myVideo,
       userVideo,
       stream,
       setStream,
@@ -145,7 +138,7 @@ const ContextProvider = memo(({ children }:{ children: React.ReactNode }): JSX.E
       answerCall,
     }),
     [
-      call, callAccepted, myVideo, userVideo, stream, name, callEnded, me,
+      call, callAccepted, userVideo, stream, name, callEnded, me,
     ],
   );
 

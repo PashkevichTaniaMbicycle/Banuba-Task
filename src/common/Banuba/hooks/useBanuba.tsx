@@ -1,22 +1,7 @@
 import {
-  Player, Effect, Dom, MediaStreamCapture,
+  Player, Effect, Dom,
 } from 'common/Banuba/SDK/BanubaSDK.js';
-import { useEffect, useState } from 'react';
-
-export const useMyStream = (player: Player | null, stream: MediaStream): MediaStream | undefined => {
-  let localStream;
-  if (player) {
-    const webar = new MediaStreamCapture(player);
-    // original audio
-    const audio = stream.getAudioTracks()[0];
-    // webar processed video
-    const video = webar.getVideoTrack();
-
-    localStream = new MediaStream([audio, video]);
-  }
-
-  return localStream;
-};
+import { useEffect } from 'react';
 
 export const useRenderBanuba = (div: HTMLDivElement | HTMLElement | null, player: Player | null): void => {
   useEffect(() => {

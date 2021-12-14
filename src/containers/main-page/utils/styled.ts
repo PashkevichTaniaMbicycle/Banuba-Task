@@ -60,6 +60,7 @@ export const OptionsItem = styled(Grid)(({ theme }) => ({
 }));
 
 export const NotificationStyled = styled('div')({
+  width: '100%',
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-around',
