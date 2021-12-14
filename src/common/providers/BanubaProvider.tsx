@@ -8,7 +8,11 @@ import {
 
 import { Effect, Player, Webcam } from 'common/Banuba/SDK/BanubaSDK';
 
-const BanubaContext = createContext<{ blurEffect: Effect | null; webcam: Webcam | null; player: Player | null } | undefined>(undefined);
+import { notifyError } from 'common/notify';
+
+import { BanubaContextType } from 'common/providers/type';
+
+const BanubaContext = createContext<BanubaContextType | undefined>(undefined);
 
 const BanubaProvider = memo(({ children }:{ children: React.ReactNode }): JSX.Element => {
   const [webcam, setWebcam] = useState<Webcam |null>(null);
@@ -19,18 +23,22 @@ const BanubaProvider = memo(({ children }:{ children: React.ReactNode }): JSX.El
     const w = new Webcam();
     setWebcam(w);
     (async () => {
-      const p = await Player.create({
-        clientToken: process.env.REACT_APP_BANUBA_KEY as string,
-        locateFile: {
-          'BanubaSDK.wasm': 'webar/BanubaSDK.wasm',
-          'BanubaSDK.data': 'webar/BanubaSDK.data',
-        },
-      });
-      setPlayer(p);
-      p.use(w);
+      try {
+        const p = await Player.create({
+          clientToken: process.env.REACT_APP_BANUBA_KEY as string,
+          locateFile: {
+            'BanubaSDK.wasm': 'webar/BanubaSDK.wasm',
+            'BanubaSDK.data': 'webar/BanubaSDK.data',
+          },
+        });
+        setPlayer(p);
+        p.use(w);
 
-      const blur = await Effect.preload('webar/BlurBG.zip');
-      setBlurEffect(blur);
+        const blur = await Effect.preload('webar/BlurBG.zip');
+        setBlurEffect(blur);
+      } catch (e) {
+        notifyError(`Something went wrong: ${JSON.stringify(e)}`);
+      }
     })();
 
     return () => {

@@ -4,7 +4,7 @@ import { Button } from '@mui/material';
 
 import { MediaStreamCapture } from 'common/Banuba/SDK/BanubaSDK';
 
-import { BlurUnblurVideo } from 'common/Banuba/hooks/useBanuba';
+import { BlurUnblurVideo } from 'common/Banuba/utils/BanubaUtils';
 import { useBanubaContext } from 'common/providers/hooks/useBanubaContext';
 import { useConnection } from 'common/providers/hooks/useConnection';
 

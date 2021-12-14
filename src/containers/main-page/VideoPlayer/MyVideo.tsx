@@ -1,7 +1,7 @@
 import { memo, useRef } from 'react';
 
 import { useBanubaContext } from 'common/providers/hooks/useBanubaContext';
-import { useRenderBanuba } from 'common/Banuba/hooks/useBanuba';
+import { useRenderBanuba } from 'common/Banuba/utils/BanubaUtils';
 
 import Paper from '@mui/material/Paper';
 import Name from 'containers/main-page/VideoPlayer/Name';

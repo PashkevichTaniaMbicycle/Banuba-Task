@@ -1,7 +1,8 @@
+import { useEffect } from 'react';
+
 import {
   Player, Effect, Dom,
 } from 'common/Banuba/SDK/BanubaSDK.js';
-import { useEffect } from 'react';
 
 export const useRenderBanuba = (div: HTMLDivElement | HTMLElement | null, player: Player | null): void => {
   useEffect(() => {
