@@ -1,7 +1,7 @@
-import Peer from 'simple-peer';
+import { SignalData } from 'simple-peer';
 
 export interface ICall{
-  signal: Peer.SignalData,
+  signal: SignalData,
   from: string,
   isReceivingCall: boolean,
   name: string,
@@ -10,9 +10,9 @@ export interface ICall{
 export type ContextType = {
   call: ICall | undefined,
   callAccepted: boolean,
-  myVideo: React.MutableRefObject<{srcObject: MediaStream} | React.LegacyRef<HTMLVideoElement> | undefined>,
   userVideo: React.MutableRefObject<{srcObject: MediaStream} | React.LegacyRef<HTMLVideoElement> | undefined>,
   stream: MediaStream | undefined,
+  setStream: React.Dispatch<React.SetStateAction<MediaStream | undefined>>,
   name: string,
   setName: React.Dispatch<React.SetStateAction<string>>,
   callEnded: boolean,

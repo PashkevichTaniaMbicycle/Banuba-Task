@@ -4,16 +4,17 @@ import { useConnection } from 'common/providers/hooks/useConnection';
 
 import {
   Button,
-  Container,
+  Container, IconButton,
   Paper,
   TextField,
   Typography,
 } from '@mui/material';
-import { Phone, PhoneDisabled } from '@mui/icons-material';
+import { Phone, PhoneDisabled, ContentCopy } from '@mui/icons-material';
 
 import { TEXT } from 'containers/main-page/utils/constants';
 
 import { OptionsItem, OptionsWrapper } from 'containers/main-page/utils/styled';
+import { toast } from 'react-toastify';
 
 const Options = function ({ children }:{ children: React.ReactNode }): JSX.Element {
   const {
@@ -29,6 +30,21 @@ const Options = function ({ children }:{ children: React.ReactNode }): JSX.Eleme
     setIdToCall(e.target.value);
   };
 
+  const copyHandler = ():void => {
+    navigator.clipboard.writeText(me);
+    toast.success('🦄 Copied your ID!', {
+      position: 'top-right',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  };
+
+  const copyButton = <IconButton color="primary" onClick={copyHandler}><ContentCopy /></IconButton>;
+
   return (
     <Container>
       <Paper elevation={10}>
@@ -36,13 +52,31 @@ const Options = function ({ children }:{ children: React.ReactNode }): JSX.Eleme
           <OptionsWrapper container>
             <OptionsItem item xs={12} md={6}>
               <Typography gutterBottom variant="h6">{TEXT.ACCOUNT_INFO}</Typography>
-              <TextField label="Name" value={name} onChange={onNameChange} fullWidth />
+              <TextField
+                label="Name"
+                value={name}
+                onChange={onNameChange}
+                fullWidth
+              />
               <Typography gutterBottom variant="h6">{TEXT.YOUR_ID}</Typography>
-              <TextField label="ID" value={me} disabled fullWidth />
+              <TextField
+                label="ID"
+                value={me}
+                disabled
+                fullWidth
+                InputProps={{
+                  endAdornment: copyButton,
+                }}
+              />
             </OptionsItem>
             <OptionsItem item xs={12} md={6}>
               <Typography gutterBottom variant="h6">{TEXT.MAKE_A_CALL}</Typography>
-              <TextField label="ID to call" value={idToCall} onChange={onIDToCallChange} fullWidth />
+              <TextField
+                label="ID to call"
+                value={idToCall}
+                onChange={onIDToCallChange}
+                fullWidth
+              />
               {callAccepted && !callEnded ? (
                 <Button
                   variant="contained"
@@ -67,7 +101,7 @@ const Options = function ({ children }:{ children: React.ReactNode }): JSX.Eleme
                 </Button>
               )}
             </OptionsItem>
-            <OptionsItem>
+            <OptionsItem item xs={12} md={12}>
               {children}
             </OptionsItem>
           </OptionsWrapper>
