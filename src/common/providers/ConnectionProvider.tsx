@@ -61,6 +61,16 @@ const ContextProvider = memo(({ children }:{ children: React.ReactNode }): JSX.E
 
     socket.on('me', (id) => setMe(id));
 
+    socket.on('callEnded', () => {
+      setCallEnded(true);
+
+      if (connectionRef.current) {
+        connectionRef.current.destroy();
+      }
+
+      // window.location.reload();
+    });
+
     socket.on('callUser', ({ from, name: callerName, signal }) => {
       setCall({
         isReceivingCall: true, from, name: callerName, signal,
@@ -115,11 +125,13 @@ const ContextProvider = memo(({ children }:{ children: React.ReactNode }): JSX.E
   const leaveCall = (): void => {
     setCallEnded(true);
 
+    socket.emit('leaveCall', {});
+
     if (connectionRef.current) {
       connectionRef.current.destroy();
     }
 
-    window.location.reload();
+    // window.location.reload();
   };
 
   const value = useMemo(
