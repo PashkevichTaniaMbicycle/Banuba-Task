@@ -28,6 +28,7 @@ const BanubaProvider = memo(({ children }:{ children: React.ReactNode }): JSX.El
           clientToken: process.env.REACT_APP_BANUBA_KEY as string,
           locateFile: {
             'BanubaSDK.wasm': 'webar/BanubaSDK.wasm',
+            'BanubaSDK.simd.wasm': 'webar/BanubaSDK.simd.wasm',
             'BanubaSDK.data': 'webar/BanubaSDK.data',
           },
         });
@@ -38,6 +39,7 @@ const BanubaProvider = memo(({ children }:{ children: React.ReactNode }): JSX.El
         setBlurEffect(blur);
       } catch (e) {
         notifyError(`Something went wrong: ${JSON.stringify(e)}`);
+        console.log(e);
       }
     })();
 

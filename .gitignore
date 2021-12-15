@@ -27,3 +27,4 @@ workspace.code-workspace
 
 .idea
 .env
+.env.production

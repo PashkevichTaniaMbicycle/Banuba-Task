@@ -17,7 +17,7 @@ import { notifyError } from 'common/notify';
 
 const SocketContext = createContext<ContextType | undefined>(undefined);
 
-const socket = io('http://localhost:5000');
+const socket = io(process.env.REACT_APP_SERVER_URL || 'http://localhost:5000');
 
 const ContextProvider = memo(({ children }:{ children: React.ReactNode }): JSX.Element => {
   const [callAccepted, setCallAccepted] = useState(false);
