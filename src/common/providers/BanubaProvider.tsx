@@ -19,6 +19,8 @@ const BanubaProvider = memo(({ children }:{ children: React.ReactNode }): JSX.El
   const [blurEffect, setBlurEffect] = useState<Effect |null>(null);
   const [player, setPlayer] = useState<Player |null>(null);
 
+  console.log(process.env.REACT_APP_BANUBA_KEY);
+
   useEffect(() => {
     const w = new Webcam();
     setWebcam(w);
